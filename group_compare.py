@@ -40,30 +40,31 @@ def build_key_map(folder):
 
 if __name__ == '__main__':
     model = load_pretrained_model('ir_50')
-    root = '/media/avlab/disk_A/CAF/colored'
-
+    root = '/media/avlab/reggie1/Paul_sd35/Agetransformer/generated_renew1214_test_sample1504_520000'
+    if not os.path.exists(f'{root}/csim_result'):
+        os.makedirs(f'{root}/csim_result')
     # 迴圈 i 進度條
     for i in tqdm(range(17), desc="Processing age groups"):
         #05,15,25,35, 75,85,95 = 7 0123789
         # 設定資料夾與 CSV 路徑
         if i == 9:
-            folderA = os.path.join(root, '0')
-            folderB = os.path.join(root, '9')
+            folderA = os.path.join(root, 'fake0')
+            folderB = os.path.join(root, 'fake9')
             csv_path = f'{root}/csim_result/CSIM_09.csv'
         elif i < 9:
-            folderA = os.path.join(root, str(i))
+            folderA = os.path.join(root, f"fake{str(i)}")
             b = i + 1
-            folderB = os.path.join(root, str(b))
+            folderB = os.path.join(root, f"fake{str(b)}")
             csv_path = f'{root}/csim_result/CSIM_{i}{b}.csv'
         else: #10,11,12,13, 14,15,16
             b = i - 10 # 0,1,2,3,4,5,6
-            folderA = os.path.join(root, '5')
+            folderA = os.path.join(root, 'fake5')
             if b < 4: #0,1,2,3
-                folderB = os.path.join(root, str(b))
+                folderB = os.path.join(root, f"fake{str(b)}")
                 csv_path = f'{root}/csim_result/CSIM_{b}{5}.csv'
             else: # 4,5,6
                 c = b + 3
-                folderB = os.path.join(root, str(c))
+                folderB = os.path.join(root, f"fake{str(c)}")
                 csv_path = f'{root}/csim_result/CSIM_{5}{c}.csv'
         mapA = build_key_map(folderA)
         mapB = build_key_map(folderB)
